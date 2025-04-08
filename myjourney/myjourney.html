@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Mock Page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        /* Variables */
+        :root {
+            --primary-color: #3C6FA5;
+            --secondary-color: #0F427A;
+            --text-color: #031427;
+            --alt-text-color: #FFFF;
+            --background-color: #FFFF;
+            --font-size-base: 16px;
+            --font-weight: 400;
+            --border-radius: 1.5rem;
+            --container-padding: 0.5rem;
+            --container-webpart-padding: 1rem;
+            --container-margins: 0.5rem;
+            --container-webpart-margins: 1rem;
+            --footer-height: 5rem;
+            --header-height: 5rem;
+            --nav-toggler-icon-width: 1.5rem;
+            --nav-toggler-icon-height: 1.5rem;
+            --smallest-screen-width: 359px;
+            --logo-width: 160px;
+        }
+
+        /* General Styles */
+        body,
+        html {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            font-family: "Poppins", sans-serif;
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight);
+            overflow-x: hidden;
+        }
+
+        header {
+            background-color: var(--background-color);
+            font-weight: 600;
+            width: 100%;
+
+        }
+
+        .navbar {
+            align-items: center;
+            position: relative;
+            margin: 0;
+            z-index: 3;
+        }
+
+        .navbar-collapse {
+            text-align: left;
+        }
+
+        .nav-item {
+            white-space: nowrap;
+            margin: var(--container-margins);
+
+        }
+
+        .navbar-toggler-icon {
+            width: var(--nav-toggler-icon-width);
+            height: var(--nav-toggler-icon-height);
+
+        }
+
+        .logo {
+            width: var(--logo-width);
+            position: relative;
+            z-index: 1000;
+            margin: var(--container-margins);
+        }
+
+        #main {
+            display: flex;
+            flex: 1;
+            flex-grow: 1;
+            background-image: url('images/NS-roads.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+
+        }
+
+        #main-content-wrapper {
+            display: flex;
+            height: 100%;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: var(--container-padding);
+        }
+
+        #left-container {
+            flex: 1 0 auto;
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            width: 24vw;
+            min-width: var(--smallest-screen-width);
+            margin: var(--container-webpart-margins);
+
+        }
+
+        #right-container {
+            flex: 1 0 auto;
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            width: 40vw;
+            min-width: var(--smallest-screen-width);
+        }
+
+        #webpart {
+            background: var(--background-color);
+            border-radius: var(--border-radius);
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            padding: var(--container-webpart-padding);
+            font-weight: 600;
+            width: 24vw;
+            min-width: var(--smallest-screen-width);
+        }
+
+        #map {
+            width: 100%;
+            height: 100%;
+            min-height: var(--smallest-screen-width);
+            border-radius: var(--border-radius);
+            min-width: 40vw;
+        }
+
+        .title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--secondary-color);
+            margin-bottom: var(--container-margins);
+        }
+
+        hr {
+            width: 100%;
+            border: none;
+            height: 1px;
+            background-color: var(--text-color);
+        }
+
+        .form-label {
+            text-align: left;
+        }
+
+        .form-control {
+            background: transparent;
+            border: 1px solid var(--text-color);
+            border-radius: 8px;
+            box-shadow: none;
+        }
+
+        .form-control:focus {
+            box-shadow: none;
+        }
+
+        .form-check {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+        }
+
+        .form-check-input {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            border: 1px solid var(--text-color);
+
+        }
+
+        .form-check-input:checked {
+            background-color: var(--primary-color);
+            border-color: var(--text-color);
+        }
+
+        .form-check-label {
+            color: #333;
+        }
+
+        .btn-custom {
+            background-color: var(--primary-color);
+            color: var(--alt-text-color);
+            border: none;
+            padding: 10px 20px;
+            font-size: var(--font-size-base);
+            border-radius: var(--border-radius);
+            width: 200px;
+            transition: background-color 0.3s ease-in-out;
+            text-align: center;
+            margin-top: var(--container-margins);
+            margin-bottom: var(--container-margins);
+        }
+
+        .btn-custom:hover {
+            background-color: var(--secondary-color);
+            color: var(--alt-text-color);
+        }
+
+        .btn-custom-outline {
+            background-color: var(--text-color);
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-custom-outline:hover {
+            background-color: var(--primary-color);
+            color: var(--text-color);
+        }
+
+        footer {
+            background-color: #e0e0e0;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .time-picker {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .time-picker>div {
+            margin: 0px 5px;
+        }
+
+        @media (max-width: 768px) {
+            .right-container {
+                margin: 0;
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="row align-items-left">
+                <div class="col-auto">
+                    <figure>
+                        <a href="index.html">
+                            <img src="images/logo.png" alt="NSCCJourney" class="logo">
+                        </a>
+                    </figure>
+                </div>
+                <div class="col">
+                    <div class="container-fluid">
+                        <nav class="navbar navbar-expand-md justify-content-end">
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                                aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse" id="navbarNav">
+                                <ul class="navbar-nav ms-auto w-100 d-flex justify-content-end p-2">
+                                    <li class="nav-item me-3">
+                                        <a class="nav-link" href="index.html">Home</a>
+                                    </li>
+                                    <li class="nav-item me-3">
+                                        <a class="nav-link" href="#">About Us</a>
+                                    </li>
+                                    <li class="nav-item me-3">
+                                        <a class="nav-link" href="#contact">Contact Us</a>
+                                    </li>
+                                    <li class="nav-item me-3">
+                                        <a class="nav-link" href="rider-signup.html">Sign Up</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main id="main">
+        <div id="main-content-wrapper" class="d-flex justify-content-flex-start">
+            <div id="left-container" class="container-fluid">
+                <div id="webpart">
+                    <div class="text-center">
+                        <div class="title">My NSCC Journey</div>
+                    </div>
+                    <div>
+                        <hr>
+                    </div>
+                    <form id="panel-1" style="display: block;">
+                        <div class="mb-2">
+                            <label for="from" class="form-label">Leaving From</label>
+                            <input type="text" class="form-control" id="from" value="Enter your Location">
+                        </div>
+                        <div class="mb-2">
+                            <label for="departure" class="form-label">Departure Time</label>
+                            <input type="time" class="form-control" id="departure">
+                        </div>
+
+                        <div class="mb-2">
+                            <label for="to" class="form-label">Destination Campus</label>
+                            <input type="text" class="form-control" id="to" value="Type the name of your campus:">
+                        </div>
+
+                    </form>
+                    <form id="panel-2" style="display: none;">
+
+                        <div class="mb-0">
+                            <label for="stop" class="form-label">Car Pool or Pick-Up Location</label>
+                            <select class="form-select" id="stop">
+                                <option value="">Select Meet Me Stop</option>
+                                <option value="stop1">Meet me Stop 1 from API Server</option>
+                                <option value="stop2">Meet me Stop 2 from API Server</option>
+                                <option value="stop3">Meet me Stop 3 from API Server</option>
+                            </select>
+                        </div>
+
+                        <div class="container m-0">
+                            <div class="row mt-2">
+                                <div class="col-md-6">
+                                    <label for="start_date" class="form-label">Journey Start Date</label>
+                                    <input type="date" class="form-control" id="start_date">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="end_date" class="form-label">Journey End Date</label>
+                                    <input type="date" class="form-control" id="end_date">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="row mt-3">Journey Weekly Schedule</div>
+                            <div class="row text-center">
+                                <div class="col p-1">Mon</div>
+                                <div class="col p-1">Tue</div>
+                                <div class="col p-1">Wed</div>
+                                <div class="col p-1">Thu</div>
+                                <div class="col p-1">Fri</div>
+                                <div class="col p-1">Sat</div>
+                                <div class="col p-1">Sun</div>
+                            </div>
+
+                            <div class="row justify-content-center">
+                                <div class="col d-flex justify-content-center align-items-center p-1">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="Mon">
+                                        <label class="form-check-label" for="Mon"></label>
+                                    </div>
+                                </div>
+                                <div class="col d-flex justify-content-center align-items-center p-1">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="Tue">
+                                        <label class="form-check-label" for="Tue"></label>
+                                    </div>
+                                </div>
+                                <div class="col d-flex justify-content-center align-items-center p-1">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="Wed">
+                                        <label class="form-check-label" for="Wed"></label>
+                                    </div>
+                                </div>
+                                <div class="col d-flex justify-content-center align-items-center p-1">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="Thu">
+                                        <label class="form-check-label" for="Thu"></label>
+                                    </div>
+                                </div>
+                                <div class="col d-flex justify-content-center align-items-center p-1">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="Fri">
+                                        <label class="form-check-label" for="Fri"></label>
+                                    </div>
+                                </div>
+                                <div class="col d-flex justify-content-center align-items-center p-1">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="Sat">
+                                        <label class="form-check-label" for="Sat"></label>
+                                    </div>
+                                </div>
+                                <div class="col d-flex justify-content-center align-items-center p-1">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="Sun">
+                                        <label class="form-check-label" for="Sun"></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <hr>
+                            </div>
+                        </div>
+                    </form>
+                    <form id="panel-3" style="display: none;">
+
+                        <div class="mb-0">
+                            <label for="stop" class="form-label">Car Pool or Pick-Up Location</label>
+                            <select class="form-select" id="stop">
+                                <option value="">Select Meet Me Stop</option>
+                                <option v lue="stop1">Meet me Stop 1 from API Server</option>
+                                <option value="stop2">Meet me Stop 2 from API Server</option>
+                                <option value="stop3">Meet me Stop 3 from API Server</option>
+                            </select>
+                        </div>
+
+                        <div class="container m-0">
+                            <div class="row mt-2">
+                                <div class="col-md-6">
+                                    <label for="start_date" class="form-label">Journey Start Date</label>
+                                    <input type="date" class="form-control" id="start_date">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="end_date" class="form-label">Journey End Date</label>
+                                    <input type="date" class="form-control" id="end_date">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="row mt-3">Journey Weekly Schedule</div>
+                            <div class="row text-center">
+                                <div class="col p-1">Mon</div>
+                                <div class="col p-1">Tue</div>
+                                <div class="col p-1">Wed</div>
+                                <div class="col p-1">Thu</div>
+                                <div class="col p-1">Fri</div>
+                                <div class="col p-1">Sat</div>
+                                <div class="col p-1">Sun</div>
+                            </div>
+
+                            <div class="row justify-content-center">
+                                <div class="col d-flex justify-content-center align-items-center p-1">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="Mon">
+                                        <label class="form-check-label" for="Mon"></label>
+                                    </div>
+                                </div>
+                                <div class="col d-flex justify-content-center align-items-center p-1">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="Tue">
+                                        <label class="form-check-label" for="Tue"></label>
+                                    </div>
+                                </div>
+                                <div class="col d-flex justify-content-center align-items-center p-1">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="Wed">
+                                        <label class="form-check-label" for="Wed"></label>
+                                    </div>
+                                </div>
+                                <div class="col d-flex justify-content-center align-items-center p-1">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="Thu">
+                                        <label class="form-check-label" for="Thu"></label>
+                                    </div>
+                                </div>
+                                <div class="col d-flex justify-content-center align-items-center p-1">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="Fri">
+                                        <label class="form-check-label" for="Fri"></label>
+                                    </div>
+                                </div>
+                                <div class="col d-flex justify-content-center align-items-center p-1">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="Sat">
+                                        <label class="form-check-label" for="Sat"></label>
+                                    </div>
+                                </div>
+                                <div class="col d-flex justify-content-center align-items-center p-1">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="Sun">
+                                        <label class="form-check-label" for="Sun"></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <hr>
+                            </div>
+                        </div>
+                    </form>
+                    <form id="panel-4" style="display: none;">
+                    </form>
+                    <div class="text-center">
+                        <button id="next-button" onclick="nextPanel()" class="btn btn-custom">Next</button>
+                    </div>
+                </div>
+            </div>
+            <div id="right-container" class="container-fluid">
+                <div id="map"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p class="text-center">Footer Content</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        var map = L.map('map').setView([45.49951, -63.00394], 7);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        function nextPanel() {
+            const panels = ['panel-1', 'panel-2', 'panel-3', 'panel-4'];
+            const button = document.getElementById('next-button');
+
+            for (let i = 0; i < panels.length - 1; i++) {
+                const currentPanel = document.getElementById(panels[i]);
+                const nextPanel = document.getElementById(panels[i + 1]);
+
+                if (currentPanel.style.display === 'block') {
+                    currentPanel.style.display = 'none';
+                    nextPanel.style.display = 'block';
+
+                    // Check if the current panel is the last panel.
+                    if (nextPanel.id === panels[panels.length - 1]) {
+                        button.textContent = 'Save';  // Change button text to "Save".
+                    } else {
+                        button.textContent = 'Next';  // Reset button text to "Next".
+                    }
+                    break;
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
