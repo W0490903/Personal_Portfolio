@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta tag for character encoding (ensures proper text rendering) -->
+    <meta charset="UTF-8">
+    
+    <!-- Meta tag to make the app responsive on all screen sizes -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Title of the page that will appear on the browser tab -->
+    <title>Weather App</title>
+    
+    <!-- Link to the external CSS file that styles the webpage -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Main container for the weather app -->
+    <div class="container">
+        
+        <!-- Heading displaying the app title -->
+        <h2>Weather App</h2>
+        
+        <!-- Input field for users to enter the name of the city -->
+        <input type="text" id="cityInput" placeholder="Enter city name">
+        
+        <!-- Button to trigger the weather search functionality -->
+        <button id="searchBtn">Get Weather</button>
+        
+        <!-- Button to toggle between Metric and Imperial units for temperature and wind speed -->
+        <button id="unitToggleBtn">Switch to Imperial</button>
+        
+        <!-- Div to display the weather information after fetching data -->
+        <div id="weatherInfo"></div>
+    </div>
+
+    <!-- Link to the external JavaScript file that contains the app logic -->
+    <script src="script.js"></script>
+</body>
+</html>

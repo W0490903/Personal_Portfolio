@@ -1,0 +1,179 @@
+/* Universal styles for all elements */
+* {
+  margin: 0; /* Remove all default margins */
+  padding: 0; /* Remove all default padding */
+  box-sizing: border-box; /* Ensures padding and border are included in element's total width/height */
+}
+
+/* Basic styling for the body */
+body {
+  font-family: 'Arial', sans-serif; /* Set font to Arial */
+  background: #f4f7fc; /* Light background color */
+  display: flex; /* Use Flexbox to center content */
+  justify-content: center; /* Horizontally center content */
+  align-items: flex-start; /* Vertically align content at the top */
+  min-height: 100vh; /* Full height of the viewport */
+  margin: 0; /* Remove default margin */
+  overflow-y: auto; /* Allow vertical scrolling if needed */
+}
+
+/* Container to hold the weather app content */
+.container {
+  background: #ffffff; /* White background for the container */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Add subtle shadow for depth */
+  border-radius: 8px; /* Rounded corners */
+  padding: 30px; /* Padding inside the container */
+  text-align: center; /* Center the text inside the container */
+  width: 100%; /* Full width */
+  max-width: 1200px; /* Limit max width to 1200px */
+  margin: 0 20px; /* Margin on the left and right sides */
+  border: 1px solid #e1e1e1; /* Light border around the container */
+  overflow: hidden; /* Prevent content from overflowing */
+}
+
+/* Style for the header (city input section) */
+h2 {
+  font-size: 24px; /* Set the font size for the heading */
+  color: #383838; /* Dark gray color for the heading text */
+  margin-bottom: 20px; /* Space below the heading */
+}
+
+/* Styling for the city input field */
+#cityInput {
+  width: 80%; /* Input field width is 80% of its parent container */
+  padding: 12px; /* Padding inside the input field */
+  margin-bottom: 20px; /* Margin below the input field */
+  border: 1px solid #383838; /* Border color for the input field */
+  border-radius: 5px; /* Rounded corners for the input field */
+  font-size: 16px; /* Font size inside the input field */
+  outline: none; /* Remove the default outline */
+  transition: border-color 0.3s ease; /* Smooth transition for border color change */
+}
+
+/* Focus effect for the city input field */
+#cityInput:focus {
+  border-color: #367C36; /* Change border color when focused */
+}
+
+/* Styling for the search button */
+#searchBtn {
+  padding: 12px 20px; /* Padding inside the button */
+  background-color: #367C36; /* Green background color */
+  color: #ffffff; /* White text color */
+  border: none; /* Remove the default border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Change cursor to pointer to indicate it's clickable */
+  font-size: 16px; /* Font size inside the button */
+  transition: background-color 0.3s ease; /* Smooth transition for background color change */
+  margin-bottom: 20px; /* Margin below the button */
+}
+
+/* Hover effect for the search button */
+#searchBtn:hover {
+  background-color: #2C632C; /* Darker green on hover */
+}
+
+/* Styling for the unit toggle button */
+#unitToggleBtn {
+  padding: 12px 20px; /* Padding inside the button */
+  background-color: #0066ff; /* Blue background color */
+  color: #ffffff; /* White text color */
+  border: none; /* Remove the default border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Change cursor to pointer */
+  font-size: 16px; /* Font size inside the button */
+  transition: background-color 0.3s ease; /* Smooth transition for background color change */
+  margin-top: 10px; /* Margin above the button */
+}
+
+/* Hover effect for the unit toggle button */
+#unitToggleBtn:hover {
+  background-color: #003de6; /* Darker blue on hover */
+}
+
+/* Styling for the weather information section */
+#weatherInfo {
+  margin-top: 20px; /* Margin above the weather info section */
+  padding: 15px; /* Padding inside the weather info section */
+  background: #367C36; /* Green background color */
+  border-radius: 5px; /* Rounded corners */
+  border: 1px solid #383838; /* Border color */
+  color: #ffffff; /* White text color */
+  font-size: 16px; /* Font size inside the weather info */
+  display: none; /* Hide the weather info by default */
+}
+
+/* Styling for the current weather section */
+.current-weather {
+  font-size: 18px; /* Larger font size for the current weather */
+  margin-bottom: 20px; /* Margin below the current weather section */
+}
+
+/* Styling for paragraphs inside the current weather section */
+.current-weather p {
+  font-size: 16px; /* Font size for paragraph text */
+  color: #ffffff; /* White text color */
+}
+
+/* Container for the daily forecast */
+.forecast-container {
+  display: flex; /* Use flexbox for the daily forecast */
+  justify-content: space-between; /* Space out the forecast items evenly */
+  gap: 10px; /* Add gap between the forecast items */
+  margin-top: 20px; /* Space above the daily forecast */
+}
+
+/* Styling for each day's forecast */
+.forecast-day {
+  background: #367C36; /* Green background for each forecast day */
+  padding: 15px; /* Padding inside each forecast day */
+  border-radius: 5px; /* Rounded corners */
+  border: 1px solid #ffffff; /* White border around each forecast day */
+  width: 18%; /* Set the width of each forecast day to 18% of the container */
+  text-align: center; /* Center the text */
+  box-sizing: border-box; /* Include padding and border in the width calculation */
+}
+
+/* Styling for images inside the forecast days (weather icons) */
+.forecast-day img {
+  width: 40px; /* Set image width */
+  height: 40px; /* Set image height */
+  margin-bottom: 10px; /* Margin below the image */
+}
+
+/* Styling for the day name inside each forecast day */
+.forecast-day h4 {
+  font-size: 16px; /* Font size for the day name */
+  color: #ffffff; /* White text color */
+  margin-bottom: 10px; /* Margin below the day name */
+}
+
+/* Styling for the paragraph text inside each forecast day */
+.forecast-day p {
+  font-size: 12px; /* Font size for the weather description */
+  color: #ffffff; /* White text color */
+  margin: 5px 0; /* Margin above and below the paragraph */
+}
+
+/* Error style for the weather info section */
+#weatherInfo.error {
+  border: 2px solid red; /* Red border for error state */
+}
+
+/* Media query for smaller screens (max-width: 768px) */
+@media (max-width: 768px) {
+  .forecast-container {
+    flex-direction: column; /* Stack the forecast items vertically */
+    align-items: center; /* Center the forecast items */
+  }
+
+  .forecast-day {
+    width: 80%; /* Set the width of each forecast day to 80% for smaller screens */
+    margin-bottom: 15px; /* Margin below each forecast day */
+  }
+}
+
+/* Highlight currently selected day. */
+.forecast-day.selected {
+  border: 2px solid #7f0fcf;
+}
